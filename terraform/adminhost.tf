@@ -131,13 +131,17 @@ resource "null_resource" "adminhost-installation" {
       "sudo apt-get update",
       "sudo apt-get upgrade -y",
       "sudo apt-get install ca-certificates curl apt-transport-https lsb-release gnupg -y",
-      "sudo curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -",
+      "curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -",
       "sudo apt-add-repository \"deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main\"",
       "sudo apt-get install terraform -y",
       "terraform version",
       "curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -",
       "sudo apt-add-repository \"deb [arch=$(dpkg --print-architecture)] https://packages.microsoft.com/repos/azure-cli/ $(lsb_release -cs) main\"",
       "sudo apt-get install azure-cli -y",
+      "curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -",
+      "sudo apt-add-repository \"deb [arch=$(dpkg --print-architecture)] http://apt.kubernetes.io/ kubernetes-xenial main\""
+      "sudo apt-get install -y kubectl",
+      "echo \"source <(kubectl completion bash)\" >> /home/tfuser/.bashrc",
       "git clone https://github.com/cybcon/et51_tf_aks.git"
     ]
   }
