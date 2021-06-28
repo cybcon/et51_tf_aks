@@ -13,9 +13,20 @@ resource "azurerm_kubernetes_cluster" "azure_k8s" {
     }
 
     default_node_pool {
-        name            = "agentpool"
-        node_count      = 3
-        vm_size         = "Standard_D2_v2"
+        name                         = "agentpool"
+        node_count                   = 3
+        vm_size                      = "Standard_DS2_v2"
+        availability_zones           = ["1","2","3"]
+        enable_auto_scaling          = false
+        enable_host_encryption       = false
+        enable_node_public_ip        = false
+        max_count                    = 0
+        max_pods                     = 110
+        min_count                    = 0
+        only_critical_addons_enabled = false
+        orchestrator_version         = "1.19.11"
+        os_disk_size_gb              = 128
+        
     }
 
     service_principal {
