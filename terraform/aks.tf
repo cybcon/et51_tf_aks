@@ -52,4 +52,6 @@ resource "local_file" "kube_config" {
 
   content  = data.template_file.kube_config.rendered
   filename = "/home/tfuser/.kube/config"
+  directory_permission = "0750"
+  file_permission = "0640"
 }
