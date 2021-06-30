@@ -37,3 +37,19 @@ resource "azurerm_kubernetes_cluster" "azure_k8s" {
         network_plugin = "kubenet"
     }
 }
+
+data "template_file" "kube_config" {
+  template   = file("${path.root}/templates/kube_config.tpl")
+  depends_on = [azurerm_kubernetes_cluster.azure_k8s]
+
+  vars = {
+    kube_config  = azurerm_kubernetes_cluster.azure_k8s.kube_config_raw
+  }
+}
+
+resource "local_file" "kube_config" {
+  depends_on = [data.template_file.kube_config]
+
+  content  = data.template_file.kube_config.rendered
+  filename = "/home/tfuser/.kube/config"
+}
