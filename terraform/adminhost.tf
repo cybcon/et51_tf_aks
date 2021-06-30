@@ -142,6 +142,7 @@ resource "null_resource" "adminhost-installation" {
       "sudo apt-add-repository \"deb [arch=$(dpkg --print-architecture)] http://apt.kubernetes.io/ kubernetes-xenial main\"",
       "sudo apt-get install -y kubectl",
       "echo \"source <(kubectl completion bash)\" >> /home/tfuser/.bashrc",
+      "mkdir /home/tfuser/.kube",
       "git clone https://github.com/cybcon/et51_tf_aks.git"
     ]
   }
