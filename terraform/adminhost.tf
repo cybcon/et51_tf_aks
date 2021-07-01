@@ -109,6 +109,11 @@ resource "azurerm_virtual_machine" "adminhost" {
       key_data = "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAn3c779mUhIrABcjfb8V5BAbXPoUROvH+ix8/dYRkGqBs2Do+GLST7z/xsQRbsyWX4rToTLHTLtthAfP94v0XadieNXK5L9Dg50jkX9yHMbZTopULeRhOHJ7cJf0GUDpM8sV7YG3bgpZ82DpM+Wa2EfEa9iW/vQHSbkzLDsFVGnQfHaZf75BrbSVgKx2ZgYOqmAGzPguFEZ9V/tY0xAfi6L4e+gmJpAFpCA6j2EDng8e6VE1LC0hy3zhR7deMc+Y7qO7fRLm6YmUKPay0ew9YzBP62v2gX99H0Gn+TSBGiIeLWs0Z+5JL+eUI9n4itMdeJpFXfr3/PmJ9Qgw8tjwz3Q== patrick.wasik@bridging-it.de\n"
       path     = "/home/tfuser/.ssh/authorized_keys"
     }
+    # Thomas Storch
+    ssh_keys {
+      key_data = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCnp9MH8VsOKj3bvr7s9+jRLP4mf4s1XPM/Hn91y8X5iMHt0PF4RJc/ebTSK2qoyOVzTKqjTpaHNN1F9fkweqxiIo5L+CkLOdOTeF0kQVUlpNaGEwDoEE+CxZxnV43veG3OnF/dnxn2zELayif+dhpXnf/zKcbexTjYJ8g8Crqfruu0WfIknYIkYD3FVy4oS32lyghmta+7iFcxlw6vpxZlRdzi7cx3zgbI+UC8W+OT1Y456wq5ecLLhrGHIj9eIPGFA+jXw5oburqK/rKOKf0JGkDkwfVlEwYfY7FcVQ1fYjnR0amC5V1icKd6wKTw5CSQNS2ZglPDmamuqG18jZuYccnbFVB4ltKljLtTYWrufK0WokD8+lHZb2XEabkJM7QM3reXARXRHIa08a6mumh5V29C2a+veHUSHxojNyjQDXhHHJQJr+yQGSkGZgpXf39XAWsLYSF5oPSFke7pi/RDg5Tt/9I10PwNA0r5FxBEDoudEAjsNrUGpsdGOv7IdTs= thomas.storch@bridging-it.de\n"
+      path     = "/home/tfuser/.ssh/authorized_keys"
+    }
   }
 }
 
