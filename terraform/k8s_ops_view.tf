@@ -38,7 +38,8 @@ resource "kubernetes_cluster_role_binding" "kube-ops-view" {
   }
   subject {
     kind      = "ServiceAccount"
-    name      = kubernetes_service_account.kube-ops-view.metadata[0]
+    #name      = kubernetes_service_account.kube-ops-view.metadata[0]
+    name      = "kube-ops-view"
     namespace = "default"
   }
 }
@@ -96,7 +97,8 @@ resource "kubernetes_deployment" "kube-ops-view" {
         }
       }
       spec {
-        service_account_name = kubernetes_service_account.kube-ops-view.metadata[0]
+        #service_account_name = kubernetes_service_account.kube-ops-view.metadata[0]
+        service_account_name      = "kube-ops-view"
 
         container {
           image = "hjacobs/kube-ops-view:20.4.0"
