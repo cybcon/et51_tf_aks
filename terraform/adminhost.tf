@@ -148,6 +148,11 @@ resource "null_resource" "adminhost-installation" {
       "sudo apt-get install -y kubectl",
       "echo \"source <(kubectl completion bash)\" >> /home/tfuser/.bashrc",
       "mkdir /home/tfuser/.kube",
+      "wget https://get.helm.sh/helm-v3.6.2-linux-amd64.tar.gz",
+      "tar xvzf helm-v3.6.2-linux-amd64.tar.gz",
+      "sudo cp linux-amd64/helm /usr/local/bin/helm",
+      "sudo ln -s /usr/local/bin/helm /usr/local/bin/helm3",
+      "rm -rf linux-amd64 helm-v3.6.2-linux-amd64.tar.gz",
       "git clone https://github.com/cybcon/et51_tf_aks.git"
     ]
   }
