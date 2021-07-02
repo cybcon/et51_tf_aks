@@ -96,11 +96,11 @@ resource "kubernetes_deployment" "kube-ops-view" {
         }
       }
       spec {
+        service_account_name = kubernetes_service_account.kube-ops-view.name
+
         container {
           image = "hjacobs/kube-ops-view:20.4.0"
           name  = "service"
-
-          service_account_name = kubernetes_service_account.kube-ops-view.name
 
           port {
             container_port = "8080"
