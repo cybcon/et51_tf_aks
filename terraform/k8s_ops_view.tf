@@ -157,7 +157,7 @@ resource "kubernetes_ingress" "ingress-appgateway" {
   metadata {
     name = "ingress-appgateway"
     annotations = {
-      "kubernetes.io/ingress.class" = "kubernetes.io/ingress.class: addon-http-application-routing"
+      "kubernetes.io/ingress.class" = "addon-http-application-routing"
     }
   }
 
