@@ -45,6 +45,7 @@ resource "azurerm_kubernetes_cluster" "azure_k8s" {
       ingress_application_gateway {
         enabled       = true
         gateway_name  = "ingress-appgateway"
+        subnet_cidr   = "10.1.255.0/16"
       } 
     }
 }
