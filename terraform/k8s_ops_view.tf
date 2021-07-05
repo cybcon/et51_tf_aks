@@ -153,9 +153,9 @@ resource "kubernetes_deployment" "kube-ops-view" {
 }
 
 # https://docs.microsoft.com/de-de/azure/aks/http-application-routing
-resource "kubernetes_ingress" "ingress-appgateway" {
+resource "kubernetes_ingress" "kube-ops-view" {
   metadata {
-    name = "ingress-appgateway"
+    name = "kube-ops-view"
     annotations = {
       "kubernetes.io/ingress.class" = "addon-http-application-routing"
     }
@@ -164,7 +164,7 @@ resource "kubernetes_ingress" "ingress-appgateway" {
   spec {
     backend {
       service_name = "kube-ops-view"
-      service_port = 8080
+      service_port = 80
     }
 
     rule {
@@ -172,10 +172,10 @@ resource "kubernetes_ingress" "ingress-appgateway" {
         path {
           backend {
             service_name = "kube-ops-view"
-            service_port = 8080
+            service_port = 80
           }
 
-          path = "/kube-ops-view/*"
+          path = "/*"
         }
       }
     }
