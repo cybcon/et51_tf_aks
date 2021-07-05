@@ -42,11 +42,11 @@ resource "azurerm_kubernetes_cluster" "azure_k8s" {
       http_application_routing {
         enabled = true
       }
-      #ingress_application_gateway {
-      #  enabled       = true
-      #  gateway_name  = "ingress-appgateway"
-      #  subnet_cidr   = "10.255.1.0/16"
-      #} 
+      ingress_application_gateway {
+        enabled       = true
+        gateway_name  = "ingress-appgateway"
+        subnet_cidr   = "10.255.0.0/16"
+      } 
     }
 }
 
