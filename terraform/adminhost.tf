@@ -11,14 +11,14 @@ resource "azurerm_virtual_network" "et51-vnet" {
   name                = "et51-vnet"
   location            = azurerm_resource_group.et51-rg.location
   resource_group_name = azurerm_resource_group.et51-rg.name
-  address_space       = ["10.1.0.0/16"]
+  address_space       = ["10.128.0.0/16"]
 }
 
 resource "azurerm_subnet" "et51-vnet-defalt-subnet" {
   name                 = "default"
   resource_group_name  = azurerm_resource_group.et51-rg.name
   virtual_network_name = azurerm_virtual_network.et51-vnet.name
-  address_prefixes     = ["10.1.0.0/24"]
+  address_prefixes     = ["10.128.0.0/24"]
 }
 
 resource "azurerm_network_security_group" "adminhost-nsg" {
