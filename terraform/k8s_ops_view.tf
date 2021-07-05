@@ -7,14 +7,14 @@ provider "kubernetes" {
 
 # https://raw.githubusercontent.com/hjacobs/kube-ops-view/master/deploy/rbac.yaml
 resource "kubernetes_service_account" "kube-ops-view" {
-  depends_on = [azurerm_kubernetes_cluster.azure_k8s.id]
+  depends_on = [azurerm_kubernetes_cluster.azure_k8s]
   
   metadata {
     name = "kube-ops-view"
   }
 }
 resource "kubernetes_cluster_role" "kube-ops-view" {
-  depends_on = [azurerm_kubernetes_cluster.azure_k8s.id]
+  depends_on = [azurerm_kubernetes_cluster.azure_k8s]
   
   metadata {
     name = "kube-ops-view"
@@ -32,7 +32,7 @@ resource "kubernetes_cluster_role" "kube-ops-view" {
   }
 }
 resource "kubernetes_cluster_role_binding" "kube-ops-view" {
-  depends_on = [azurerm_kubernetes_cluster.azure_k8s.id]
+  depends_on = [azurerm_kubernetes_cluster.azure_k8s]
   
   metadata {
     name = "kube-ops-view"
@@ -53,7 +53,7 @@ resource "kubernetes_cluster_role_binding" "kube-ops-view" {
 
 # https://raw.githubusercontent.com/hjacobs/kube-ops-view/master/deploy/service.yaml
 resource "kubernetes_service" "kube-ops-view" {
-  depends_on = [azurerm_kubernetes_cluster.azure_k8s.id]
+  depends_on = [azurerm_kubernetes_cluster.azure_k8s]
 
   metadata {
     name = "kube-ops-view"
@@ -79,7 +79,7 @@ resource "kubernetes_service" "kube-ops-view" {
 
 # https://raw.githubusercontent.com/hjacobs/kube-ops-view/master/deploy/deployment.yaml
 resource "kubernetes_deployment" "kube-ops-view" {
-  depends_on = [azurerm_kubernetes_cluster.azure_k8s.id]
+  depends_on = [azurerm_kubernetes_cluster.azure_k8s]
 
   metadata {
     name = "kube-ops-view"
