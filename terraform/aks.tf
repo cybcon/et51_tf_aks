@@ -15,7 +15,8 @@ resource "azurerm_kubernetes_cluster" "azure_k8s" {
     default_node_pool {
         name                         = "agentpool"
         node_count                   = 3
-        vm_size                      = "Standard_DS2_v2"
+        #vm_size                      = "Standard_DS2_v2"
+        vm_size                      = "Standard_B2s"
         availability_zones           = ["1","2","3"]
         enable_auto_scaling          = false
         enable_host_encryption       = false
