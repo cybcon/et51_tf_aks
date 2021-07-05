@@ -42,6 +42,10 @@ resource "azurerm_kubernetes_cluster" "azure_k8s" {
       http_application_routing {
         enabled = true
       }
+      ingress_application_gateway {
+        enabled       = true
+        gateway_name  = "ingress-appgateway"
+      } 
     }
 }
 
