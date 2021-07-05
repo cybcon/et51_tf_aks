@@ -72,7 +72,8 @@ resource "kubernetes_service" "kube-ops-view" {
       port        = 80
       target_port = 8080
     }
-    type = "LoadBalancer"
+    #type = "LoadBalancer"
+    type = "ClusterIP"
   }
 }
 
@@ -145,6 +146,33 @@ resource "kubernetes_deployment" "kube-ops-view" {
             initial_delay_seconds = 5
             timeout_seconds        = 1
           }
+        }
+      }
+    }
+  }
+}
+
+# https://docs.microsoft.com/de-de/azure/aks/http-application-routing
+resource "kubernetes_ingress" "ingress-appgateway" {
+  metadata {
+    name = "ingress-appgateway"
+  }
+
+  spec {
+    backend {
+      service_name = "kube-ops-view"
+      service_port = 8080
+    }
+
+    rule {
+      http {
+        path {
+          backend {
+            service_name = "kube-ops-view"
+            service_port = 8080
+          }
+
+          path = "/kube-ops-view/*"
         }
       }
     }
