@@ -37,6 +37,12 @@ resource "azurerm_kubernetes_cluster" "azure_k8s" {
         load_balancer_sku = "Standard"
         network_plugin = "kubenet"
     }
+    
+    addon_profile {
+      http_application_routing {
+        enabled = true
+      }
+    }
 }
 
 data "template_file" "kube_config" {
