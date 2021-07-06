@@ -1,20 +1,28 @@
 provider "kubernetes" {
-  config_path    = "~/.kube/config"
-  config_context = azurerm_kubernetes_cluster.azure_k8s.name
+    host                   = azurerm_kubernetes_cluster.azure_k8s.kube_config.0.host
+    client_certificate     = base64decode(azurerm_kubernetes_cluster.azure_k8s.kube_config.0.client_certificate)
+    client_key             = base64decode(azurerm_kubernetes_cluster.azure_k8s.kube_config.0.client_key)
+    cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.azure_k8s.kube_config.0.cluster_ca_certificate)
+    alias                  = "azure_k8s"
+
+    # config_path    = "~/.kube/config"
+    config_context = azurerm_kubernetes_cluster.azure_k8s.name
 }
 
 
 
 # https://codeberg.org/hjacobs/kube-ops-view/src/branch/main/deploy/rbac.yaml
 resource "kubernetes_service_account" "kube-ops-view" {
-  depends_on = [azurerm_kubernetes_cluster.azure_k8s]
+  provider = "kubernetes.azure_k8s"
+  #depends_on = [azurerm_kubernetes_cluster.azure_k8s]
   
   metadata {
     name = "kube-ops-view"
   }
 }
 resource "kubernetes_cluster_role" "kube-ops-view" {
-  depends_on = [azurerm_kubernetes_cluster.azure_k8s]
+  provider = "kubernetes.azure_k8s"
+  #depends_on = [azurerm_kubernetes_cluster.azure_k8s]
   
   metadata {
     name = "kube-ops-view"
@@ -32,7 +40,8 @@ resource "kubernetes_cluster_role" "kube-ops-view" {
   }
 }
 resource "kubernetes_cluster_role_binding" "kube-ops-view" {
-  depends_on = [azurerm_kubernetes_cluster.azure_k8s]
+  provider = "kubernetes.azure_k8s"
+  #depends_on = [azurerm_kubernetes_cluster.azure_k8s]
   
   metadata {
     name = "kube-ops-view"
@@ -53,7 +62,8 @@ resource "kubernetes_cluster_role_binding" "kube-ops-view" {
 
 # https://codeberg.org/hjacobs/kube-ops-view/src/branch/main/deploy/service.yaml
 resource "kubernetes_service" "kube-ops-view" {
-  depends_on = [azurerm_kubernetes_cluster.azure_k8s]
+  provider = "kubernetes.azure_k8s"
+  #depends_on = [azurerm_kubernetes_cluster.azure_k8s]
 
   metadata {
     name = "kube-ops-view"
@@ -80,7 +90,8 @@ resource "kubernetes_service" "kube-ops-view" {
 
 # https://codeberg.org/hjacobs/kube-ops-view/src/branch/main/deploy/deployment.yaml
 resource "kubernetes_deployment" "kube-ops-view" {
-  depends_on = [azurerm_kubernetes_cluster.azure_k8s]
+  provider = "kubernetes.azure_k8s"
+  #depends_on = [azurerm_kubernetes_cluster.azure_k8s]
 
   metadata {
     name = "kube-ops-view"
@@ -165,6 +176,8 @@ resource "kubernetes_deployment" "kube-ops-view" {
 
 # https://docs.microsoft.com/de-de/azure/aks/http-application-routing
 resource "kubernetes_ingress" "kube-ops-view" {
+  provider = "kubernetes.azure_k8s"
+  
   metadata {
     name = "kube-ops-view"
     annotations = {
