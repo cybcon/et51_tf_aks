@@ -5,7 +5,7 @@ provider "kubernetes" {
 
 
 
-# https://raw.githubusercontent.com/hjacobs/kube-ops-view/master/deploy/rbac.yaml
+# https://codeberg.org/hjacobs/kube-ops-view/src/branch/main/deploy/rbac.yaml
 resource "kubernetes_service_account" "kube-ops-view" {
   depends_on = [azurerm_kubernetes_cluster.azure_k8s]
   
@@ -51,7 +51,7 @@ resource "kubernetes_cluster_role_binding" "kube-ops-view" {
 }
 
 
-# https://raw.githubusercontent.com/hjacobs/kube-ops-view/master/deploy/service.yaml
+# https://codeberg.org/hjacobs/kube-ops-view/src/branch/main/deploy/service.yaml
 resource "kubernetes_service" "kube-ops-view" {
   depends_on = [azurerm_kubernetes_cluster.azure_k8s]
 
@@ -78,7 +78,7 @@ resource "kubernetes_service" "kube-ops-view" {
 }
 
 
-# https://raw.githubusercontent.com/hjacobs/kube-ops-view/master/deploy/deployment.yaml
+# https://codeberg.org/hjacobs/kube-ops-view/src/branch/main/deploy/deployment.yaml
 resource "kubernetes_deployment" "kube-ops-view" {
   depends_on = [azurerm_kubernetes_cluster.azure_k8s]
 
@@ -145,6 +145,17 @@ resource "kubernetes_deployment" "kube-ops-view" {
 
             initial_delay_seconds = 5
             timeout_seconds        = 1
+          }
+          liveness_probe {
+            http_get {
+              path = "/health"
+              port = 8080
+            }
+
+            initial_delay_seconds = 30
+            period_seconds        = 30
+            timeout_seconds       = 10
+            failure_threshold     = 5
           }
         }
       }
