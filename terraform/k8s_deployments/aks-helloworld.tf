@@ -1,6 +1,6 @@
 # https://codeberg.org/hjacobs/kube-ops-view/src/branch/main/deploy/rbac.yaml
 resource "kubernetes_deployment" "aks-helloworld" {
-  provider = "kubernetes.azure_k8s"
+  provider = kubernetes.azure_k8s
 
   metadata {
     name = "aks-helloworld"
@@ -30,9 +30,10 @@ resource "kubernetes_deployment" "aks-helloworld" {
             container_port = "80"
             protocol = "TCP"
           }
-          
+
           env {
-            "TITLE" = "Welcome to Azure Kubernetes Service (AKS)"
+            name = "TITLE"
+            value = "Welcome to Azure Kubernetes Service (AKS)"
           }
         }
       }
@@ -40,7 +41,7 @@ resource "kubernetes_deployment" "aks-helloworld" {
   }
 }
 resource "kubernetes_service" "aks-helloworld" {
-  provider = "kubernetes.azure_k8s"
+  provider = kubernetes.azure_k8s
 
   metadata {
     name = "aks-helloworld"
@@ -58,8 +59,8 @@ resource "kubernetes_service" "aks-helloworld" {
 
 
 resource "kubernetes_ingress" "aks-helloworld" {
-  provider = "kubernetes.azure_k8s"
-  
+  provider = kubernetes.azure_k8s
+
   metadata {
     name = "aks-helloworld"
     annotations = {
