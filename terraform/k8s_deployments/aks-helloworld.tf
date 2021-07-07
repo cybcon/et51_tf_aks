@@ -33,7 +33,8 @@ resource "kubernetes_deployment" "aks-helloworld" {
 
           env {
             name = "TITLE"
-            value = "Welcome to Azure Kubernetes Service (AKS)"
+            #value = "Welcome to Azure Kubernetes Service (AKS)"
+            value = "Willkommen beim Entwicklertag 51"
           }
         }
       }
@@ -64,9 +65,12 @@ resource "kubernetes_ingress" "aks-helloworld" {
   metadata {
     name = "aks-helloworld"
     annotations = {
+      # https://kubernetes.github.io/ingress-nginx/examples/rewrite/
       "kubernetes.io/ingress.class" = "addon-http-application-routing"
-      "nginx.ingress.kubernetes.io/use-regex" = "true"
-      "nginx.ingress.kubernetes.io/rewrite-target" = "/$1"
+      #"nginx.ingress.kubernetes.io/ssl-redirect" = "false"
+      #"nginx.ingress.kubernetes.io/use-regex" = "true"
+      #"nginx.ingress.kubernetes.io/rewrite-target" = "/$1"
+      #"nginx.ingress.kubernetes.io/app-root" = "/"
     }
   }
 
@@ -79,14 +83,18 @@ resource "kubernetes_ingress" "aks-helloworld" {
     rule {
       http {
         path {
+          path = "/"
           backend {
             service_name = "aks-helloworld"
             service_port = 80
           }
-
-          path = "/aks-helloworld/"
         }
       }
     }
   }
 }
+
+output "aks-helloworld_url" {
+  value = "https://${kubernetes_ingress.aks-helloworld.status.0.load_balancer.0.ingress.0.ip}/aks-helloworld/"
+}
+
