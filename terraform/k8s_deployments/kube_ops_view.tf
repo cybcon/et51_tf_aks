@@ -181,7 +181,7 @@ resource "kubernetes_ingress" "kube-ops-view" {
             service_port = 80
           }
 
-          path = "/*"
+          path = "/kube-ops-view/*"
         }
       }
     }

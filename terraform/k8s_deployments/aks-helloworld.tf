@@ -77,7 +77,7 @@ resource "kubernetes_ingress" "aks-helloworld" {
             service_port = 80
           }
 
-          path = "/"
+          path = "/aks-helloworld/*"
         }
       }
     }
