@@ -69,11 +69,16 @@ resource "kubernetes_ingress" "aks-helloworld" {
   }
 
   spec {
+    backend {
+      service_name = "aks-helloworld"
+      service_port = 80
+    }
+
     rule {
       http {
         path {
           backend {
-            service_name = "kube-ops-view"
+            service_name = "aks-helloworld"
             service_port = 80
           }
 
