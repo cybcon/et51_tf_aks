@@ -65,6 +65,8 @@ resource "kubernetes_ingress" "aks-helloworld" {
     name = "aks-helloworld"
     annotations = {
       "kubernetes.io/ingress.class" = "addon-http-application-routing"
+      "nginx.ingress.kubernetes.io/use-regex" = "true"
+      "nginx.ingress.kubernetes.io/rewrite-target" = "/$1"
     }
   }
 
@@ -82,7 +84,7 @@ resource "kubernetes_ingress" "aks-helloworld" {
             service_port = 80
           }
 
-          path = "/aks-helloworld/*"
+          path = "/aks-helloworld(/|$)(.*)"
         }
       }
     }
