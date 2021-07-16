@@ -1,4 +1,4 @@
-# https://codeberg.org/hjacobs/kube-ops-view/src/branch/main/deploy/rbac.yaml
+# https://github.com/Azure-Samples/helm-charts/blob/master/chart-source/aks-helloworld/templates/acs-helloworld.yaml
 resource "kubernetes_deployment" "aks-helloworld" {
   provider = kubernetes.azure_k8s
 
